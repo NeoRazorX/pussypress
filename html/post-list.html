@@ -10,18 +10,18 @@
 </head>
 <body>
    <div class="header">
-      <h1>
-         <a href="../../index.html">{{$blog_title}}</a>
-      </h1>
+      <h1>{{$blog_title}}</h1>
       <p>{{$blog_description}}</p>
    </div>
+   {{foreach_post}}
    <div class="post">
       <h1>
-      	<a href="{{$post_link}}">{{$post_title}}</a>
+         <a href="{{$post_link}}">{{$post_title}}</a>
       </h1>
       <div class="post_body">{{$post_body}}</div>
    </div>
    <hr/>
+   {{/foreach_post}}
    <div class="footer">
       Powered by <b>PussyPress</b>.
    </div>

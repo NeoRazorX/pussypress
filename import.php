@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of YASB
+ * This file is part of PussyPress
  * Copyright (C) 2013  Carlos Garcia Gomez  neorazorx@gmail.com
  *
  * This program is free software: you can redistribute it and/or modify
@@ -16,37 +16,6 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-if( !isset($_SERVER["argv"]) )
-   echo "uso: php5 import.php ruta_del_archivo.xml\n";
-else if( count($_SERVER["argv"]) != 2 )
-   echo "uso: php5 import.php ruta_del_archivo.xml\n";
-else if( !file_exists($_SERVER["argv"][1]) )
-   echo "Archivo no encontrado.\n";
-else
-{
-	$xml = simplexml_load_file($_SERVER["argv"][1]);
-	if($xml)
-	{
-		if($xml->entry)
-		{
-			$postcategory = "http://schemas.google.com/blogger/2008/kind#post";
-			$postimport = "blogger.importType";
-			$commentcategory = "http://schemas.google.com/blogger/2008/kind#comment";
-			foreach($xml->entry as $entry)
-			{
-				if( strstr($entry->asXML(), $postcategory) AND !strstr($entry->asXML(), $postimport) )
-				{
-					new_post($entry);
-				}
-				else if( strstr($entry->asXML(), $commentcategory) )
-				{
-					new_comment($entry);
-				}
-			}
-		}
-	}
-}
 
 function new_post(&$entry)
 {
@@ -130,6 +99,38 @@ function new_comment(&$entry)
 							fclose($file);
 						}
 					}
+				}
+			}
+		}
+	}
+}
+
+
+if( !isset($_SERVER["argv"]) )
+   echo "uso: php5 import.php ruta_del_archivo.xml\n";
+else if( count($_SERVER["argv"]) != 2 )
+   echo "uso: php5 import.php ruta_del_archivo.xml\n";
+else if( !file_exists($_SERVER["argv"][1]) )
+   echo "Archivo no encontrado.\n";
+else
+{
+	$xml = simplexml_load_file($_SERVER["argv"][1]);
+	if($xml)
+	{
+		if($xml->entry)
+		{
+			$postcategory = "http://schemas.google.com/blogger/2008/kind#post";
+			$postimport = "blogger.importType";
+			$commentcategory = "http://schemas.google.com/blogger/2008/kind#comment";
+			foreach($xml->entry as $entry)
+			{
+				if( strstr($entry->asXML(), $postcategory) AND !strstr($entry->asXML(), $postimport) )
+				{
+					new_post($entry);
+				}
+				else if( strstr($entry->asXML(), $commentcategory) )
+				{
+					new_comment($entry);
 				}
 			}
 		}
