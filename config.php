@@ -17,7 +17,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/// La zona horaria del blof
+date_default_timezone_set('Europe/Madrid');
+
+/// El título del blog
 define('PUSSY_TITLE', 'NeoRazorX');
+
+/// La descripción del blog
 define('PUSSY_DESCRIPTION', "My new static blog. Why? Because fuck you, that's why!");
+
+/// El aspecto seleccionado. Tiene que estar en la carpeta themes,
+define('PUSSY_THEME', 'default');
+
+/// El dominio del blog
+define('PUSSY_DOMAIN', 'neorazorx.com');
+
+/// ¿Usas google analytics? Escribe el identificador aquí.
+define('PUSSY_GOOGLE_ANALYTICS', '');
+
+/*
+ * ¿Quieres usar la plataforma disqus para gestionar los comentarios?
+ * Escribe aquí el shortname.
+ */
+define('PUSSY_DISQUS', '');
 
 ?>

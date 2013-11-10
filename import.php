@@ -17,6 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+include "config.php";
+
 function new_post(&$entry)
 {
 	if($entry->link)
@@ -51,8 +53,8 @@ function new_post(&$entry)
 					if($file)
 					{
 						fwrite($file, 'title: '.(string)$entry->title."\n");
-						fwrite($file, 'published: '.(string)$entry->published."\n");
-						fwrite($file, 'updated: '.(string)$entry->updated."\n");
+						fwrite($file, 'published: '.strtotime( (string)$entry->published )."\n");
+						fwrite($file, 'updated: '.strtotime( (string)$entry->updated )."\n");
 						fwrite($file, 'keywords: '.join(', ', $keywords)."\n");
 						fwrite($file, "----------\n");
 						fwrite($file, htmlspecialchars_decode( (string)$entry->content )."\n");
@@ -91,8 +93,8 @@ function new_comment(&$entry)
 						if($file)
 						{
 							fwrite($file, 'author: '.(string)$entry->author->name."\n");
-							fwrite($file, 'published: '.(string)$entry->published."\n");
-							fwrite($file, 'updated: '.(string)$entry->updated."\n");
+							fwrite($file, 'published: '.strtotime( (string)$entry->published )."\n");
+							fwrite($file, 'updated: '.strtotime( (string)$entry->updated )."\n");
 							fwrite($file, "----------\n");
 							fwrite($file, htmlspecialchars_decode( (string)$entry->content )."\n");
 							fwrite($file, "*****END*COMMENT*****\n");
