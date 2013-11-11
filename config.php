@@ -39,6 +39,6 @@ define('PUSSY_GOOGLE_ANALYTICS', '');
  * ¿Quieres usar la plataforma disqus para gestionar los comentarios?
  * Escribe aquí el shortname.
  */
-define('PUSSY_DISQUS', '');
+define('PUSSY_DISQUS', 'neorazorx');
 
 ?>

@@ -17,7 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require 'post.class.php';
+require 'core/post.class.php';
+require 'core/rss.php';
 
 /// cargamos todos los posts
 $all_posts = array();
@@ -66,10 +67,15 @@ foreach($all_posts as $i => $value)
 	{
 		$month = $value->month();
 		$all_posts[$i]->compile($year.'/'.$month.'/index.html');
+		$all_posts[$i]->compile($year.'_'.$month.'_01_archive.html');
 	}
 }
 
 /// generamos el html para la raiz.
 end($all_posts)->compile('index.html');
+
+/// generamos los feeds
+posts2rss($all_posts);
+posts2atom($all_posts);
 
 ?>

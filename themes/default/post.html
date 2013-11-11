@@ -7,7 +7,9 @@
    <meta name="keywords" content="{$post->keywords}" />
    <meta name="Robots" content="all" />
    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-   <style type="text/css">{include="style"}</style>
+   <link rel="icon" type="image/vnd.microsoft.icon" href="{$post->new_url('themes/default/favicon.ico', $here)}" />
+   <link rel="alternate" type="application/atom+xml" title="{$pussy_title}" href="{$post->new_url('feeds/posts/default', $here)}" />
+   <style type="text/css">{include="style.css"}</style>
 </head>
 <body>
    <table class="top_menu">
@@ -15,7 +17,7 @@
          <td align="right">
             <form action="http://www.google.com/search" method="get" target="_blank">
                <input type="hidden" name="as_sitesearch" value="{$pussy_domain}">
-               <input type="text" name="as_q" size="10"/>
+               <input type="text" name="as_q" size="15"/>
                <input type="submit" value="buscar"/>
             </form>
          </td>
@@ -23,22 +25,26 @@
    </table>
    <div class="header">
       <h1>
-         <a href="{$post->root($here)}">{$pussy_title}</a>
+         <a href="{$post->new_url('index.html', $here)}">{$pussy_title}</a>
       </h1>
       <p>{$pussy_description}</p>
    </div>
    <div class="post">
       <h1>
-      	<a href="{$post->link($here)}">{$post->title}</a>
+      	<a href="{$post->new_url($post->link, $here)}">{$post->title}</a>
       </h1>
       <div class="post_body">{$post->body}</div>
       {if condition="$post->previous_link!='/'"}
-         <a id='prev_post' href="{$post->previous($here)}" title="Post anterior">&lt;</a>
+         <a id='prev_post' href="{$post->new_url($post->previous_link, $here)}" title="Post anterior">&lt;</a>
       {/if}
       {if condition="$post->next_link!='/'"}
-         <a id='next_post' href="{$post->next($here)}" title="Post siguiente">&gt;</a>
+         <a id='next_post' href="{$post->new_url($post->next_link, $here)}" title="Post siguiente">&gt;</a>
       {/if}
       <hr/>
+      <div class="post_info">
+      	Publicado el {$post->published()},
+      	etiquetas: {$post->keywords}
+      </div>
       {if condition="$pussy_disqus"}
          <div id="disqus_thread"></div>
          <script type="text/javascript">

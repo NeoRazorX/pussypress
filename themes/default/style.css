@@ -1,0 +1,132 @@
+body {
+   margin: 0px;
+   padding: 40px 5px 10px 5px;
+   color: #555555;
+   font-family: 'Open Sans', sans-serif;
+   text-rendering: optimizeLegibility;
+   -webkit-font-smoothing: antialiased;
+   font-size: 18px;
+}
+
+a {
+   color: #555;
+}
+
+pre {
+   margin: 5px;
+}
+
+code {
+   display: block;
+   padding: 5px;
+   background-color: #FFFEDD;
+   border: 1px dotted silver;
+}
+
+table.top_menu {
+   position: fixed;
+   top: 0px;
+   left: 0px;
+   z-index: 2;
+   width: 100%;
+   background-color: #464646;
+   opacity: 0.8;
+   color: white;
+}
+
+table.top_menu input[type='text'] {
+   background-color: white;
+   border: 1px solid silver;
+}
+
+table.top_menu input[type='submit'] {
+   background-color: #166BEC;
+   border: 1px solid #5699FF;
+   color: white;
+   text-transform: uppercase;
+}
+
+div.header {
+   text-align: center;
+   margin-bottom: 30px;
+}
+
+div.header h1 {
+   margin: 10px;
+   margin-bottom: 0px;
+   color: #555;
+   font-size: 4em;
+   font-weight: bold;
+   text-transform: uppercase;
+}
+
+div.header p {
+   margin-top: 0px;
+   color: #999999;
+   text-transform: uppercase;
+}
+
+div.post {
+   max-width: 1000px;
+   margin-left: auto;
+   margin-right: auto;
+   padding: 10px;
+}
+
+div.post h1 {
+   margin: 0px;
+   margin-bottom: 5px;
+}
+
+div.post div.post_body {
+   text-align: justify;
+}
+
+div.post div.post_info {
+   margin-bottom: 30px;
+   color: #666666;
+   font-size: 10px;
+}
+
+hr {
+   margin-top: 15px;
+   border: 0px;
+   height: 1px;
+   background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.35), rgba(0,0,0,0)); 
+   background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.35), rgba(0,0,0,0)); 
+   background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.35), rgba(0,0,0,0)); 
+   background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.35), rgba(0,0,0,0)); 
+}
+
+#prev_post {
+   position: fixed;
+   top: 200px;
+   left: 0px;
+   padding: 50px 10px 50px 5px;
+   border-top-right-radius: 5px;
+   border-bottom-right-radius: 5px;
+   background-color: #464646;
+   opacity: 0.7;
+   color: white;
+   font-size: 30px;
+   text-decoration: none;
+}
+
+#next_post {
+   position: fixed;
+   top: 200px;
+   right: 0px;
+   padding: 50px 5px 50px 10px;
+   border-top-left-radius: 5px;
+   border-bottom-left-radius: 5px;
+   background-color: #464646;
+   opacity: 0.7;
+   color: white;
+   font-size: 30px;
+   text-decoration: none;
+}
+
+div.footer {
+   margin-top: 20px;
+   text-align: center;
+}
