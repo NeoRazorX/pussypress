@@ -1,0 +1,46 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es" >
+<head>
+   <title>{$tag}</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   <meta name="description" content="{$pussy_description}" />
+   <meta name="Robots" content="all" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <link rel="icon" type="image/vnd.microsoft.icon" href="../../themes/default/favicon.ico" />
+   <link rel="alternate" type="application/atom+xml" title="{$pussy_title}" href="../../feeds/posts/default" />
+   <style type="text/css">
+      {include="style.css"}
+      {include="tag.css"}
+   </style>
+</head>
+<body>
+   <table class="top_menu">
+      <tr>
+         <td align="right">
+            <form action="http://www.google.com/search" method="get" target="_blank">
+               <input type="hidden" name="as_sitesearch" value="{$pussy_domain}">
+               <input type="text" name="as_q" size="15"/>
+               <input type="submit" value="buscar"/>
+            </form>
+         </td>
+      </tr>
+   </table>
+   <div class="header">
+      <h1>
+         <a href="../../">{$pussy_title}</a>
+      </h1>
+      <p>{$pussy_description}</p>
+   </div>
+   <div class="tag_info">
+      <h1>{$tag}</h1>
+      <ul>
+         {loop="$posts"}
+         <li><a href="../../{$value->link}">{$value->title}</a></li>
+         {/loop}
+      </ul>
+   </div>
+   <div class="footer">
+      Powered by <a target="_blank" href="https://github.com/NeoRazorX/pussypress">PussyPress</a>.
+   </div>
+</body>
+</html>

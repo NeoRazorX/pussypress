@@ -1,0 +1,76 @@
+div.big_header {
+   display: block;
+   margin: 0px 0px 30px 0px;
+   padding: 50px 10px 10px 10px;
+   background-color: #96C5CB;
+   text-align: center;
+}
+
+div.big_header_2 {
+   display: inline-block;
+   text-align: left;
+}
+
+div.big_header_2 img.logo {
+   float: left;
+   margin: 5px;
+   clear: both;
+   border-radius: 5px;
+}
+
+div.big_header_2 h1 {
+   margin: 0px;
+   padding: 0px;
+   color: #333;
+   font-size: 4em;
+   font-weight: bold;
+   text-transform: uppercase;
+}
+
+div.big_header_2 p {
+   margin: 0px;
+   color: #666;
+   text-transform: uppercase;
+}
+
+div.big_header ul {
+   list-style: none;
+}
+
+div.big_header ul li {
+   display: inline-block;
+   padding: 10px;
+   background-color: #f1f1f1;
+   border-radius: 20px;
+}
+
+div.hr {
+	height: 1px;
+	margin-bottom: 10px;
+	background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.35), rgba(0,0,0,0));
+   background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.35), rgba(0,0,0,0));
+   background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.35), rgba(0,0,0,0));
+   background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.35), rgba(0,0,0,0));
+   text-align: center;
+}
+
+span.hr {
+	position: relative;
+	top: -0.5em;
+	padding: 5px;
+	background-color: white;
+	text-transform: uppercase;
+}
+
+ul.tags {
+	max-width: 600px;
+	margin: 0px auto 0px auto;
+	padding: 5px;
+	list-style: none;
+	text-align: center;
+}
+
+ul.tags li {
+	display: inline-block;
+   padding: 5px;
+}

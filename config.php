@@ -41,4 +41,10 @@ define('PUSSY_GOOGLE_ANALYTICS', '');
  */
 define('PUSSY_DISQUS', 'neorazorx');
 
+/// ¿Tienes twitter?
+define('PUSSY_TWITTER', 'neorazorx');
+
+/// ¿Tienes github?
+define('PUSSY_GITHUB', 'neorazorx');
+
 ?>

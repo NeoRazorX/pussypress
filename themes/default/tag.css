@@ -1,0 +1,20 @@
+div.tag_info {
+	max-width: 800px;
+	margin: 10px auto 10px auto;
+	background-color: #FCF8E3;
+	border: 1px solid #CCC8B8;
+	border-radius: 10px;
+}
+
+div.tag_info h1 {
+	margin: 0px 20px 0px 20px;
+	padding: 5px;
+}
+
+div.tag_info ul {
+	margin: 0px 5px 10px 20px;
+}
+
+div.tag_info ul li {
+	padding: 2px;
+}

@@ -42,8 +42,10 @@
       {/if}
       <hr/>
       <div class="post_info">
-      	Publicado el {$post->published()},
-      	etiquetas: {$post->keywords}
+      	Publicado el {$post->published()}, etiquetas:
+         {loop="$post->keywords()"}
+            <a href="{$post->new_url('search/label/'.$value, $here)}">{$value}</a>,
+         {/loop}
       </div>
       {if condition="$pussy_disqus"}
          <div id="disqus_thread"></div>

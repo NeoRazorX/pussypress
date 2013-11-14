@@ -17,23 +17,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require 'core/post.class.php';
-require 'core/rss.php';
+require_once 'config.php';
+require_once 'core/post.class.php';
+require_once 'core/root.php';
+require_once 'core/rss.php';
+require_once 'core/tag.php';
 
 /// cargamos todos los posts
 $all_posts = array();
 foreach(scandir('.') as $year)
 {
-	if( is_dir($year) AND is_numeric($year) )
+   if( is_dir($year) AND is_numeric($year) )
    {
-   	foreach(scandir($year) as $month)
+      foreach(scandir($year) as $month)
       {
-      	if( is_dir($year.'/'.$month) AND is_numeric($month) )
+         if( is_dir($year.'/'.$month) AND is_numeric($month) )
          {
-         	foreach(scandir($year.'/'.$month) as $file)
+            foreach(scandir($year.'/'.$month) as $file)
             {
                if( substr($file, -5) == '.post' )
-               	$all_posts[] = new post($year.'/'.$month.'/'.$file);
+                  $all_posts[] = new post($year.'/'.$month.'/'.$file);
             }
          }
       }
@@ -43,36 +46,45 @@ foreach(scandir('.') as $year)
 
 $year = '';
 $month = '';
+$tags = array();
 foreach($all_posts as $i => $value)
 {
+   /// obetenemos las etiquetas
+   foreach($value->keywords() as $key)
+      add2tags($tags, $key);
+
    /// enlazamos los posts y generamos el HTML
-	if( isset($all_posts[$i-1]) )
+   if( isset($all_posts[$i-1]) )
       $all_posts[$i]->previous_link = $all_posts[$i-1]->link;
 
-	if( isset($all_posts[$i+1]) )
+   if( isset($all_posts[$i+1]) )
       $all_posts[$i]->next_link = $all_posts[$i+1]->link;
 
-	$all_posts[$i]->compile($value->link);
+   $all_posts[$i]->compile($value->link);
 
    /*
     * También hay que generar el html de los listados de posts
     * para cada mes y cada año.
     */
-	if($value->year() != $year)
-	{
-		$year = $value->year();
+   if($value->year() != $year)
+   {
+      $year = $value->year();
       $all_posts[$i]->compile($year.'/index.html');
-	}
-	if($value->month() != $month)
-	{
-		$month = $value->month();
-		$all_posts[$i]->compile($year.'/'.$month.'/index.html');
-		$all_posts[$i]->compile($year.'_'.$month.'_01_archive.html');
-	}
+   }
+   if($value->month() != $month)
+   {
+      $month = $value->month();
+      $all_posts[$i]->compile($year.'/'.$month.'/index.html');
+      $all_posts[$i]->compile($year.'_'.$month.'_01_archive.html');
+   }
 }
 
+/// generamos la página para cada etiqueta
+foreach($tags as $tag)
+   tag2page($tag[0], $all_posts);
+
 /// generamos el html para la raiz.
-end($all_posts)->compile('index.html');
+post2root( end($all_posts), sort_tags($tags) );
 
 /// generamos los feeds
 posts2rss($all_posts);
