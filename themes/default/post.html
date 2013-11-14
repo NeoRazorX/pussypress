@@ -47,6 +47,13 @@
             <a href="{$post->new_url('search/label/'.$value, $here)}">{$value}</a>,
          {/loop}
       </div>
+      {loop="$post->comments"}
+      	<div class="old_comment">
+      		<div class="date">{$value['published']}</div>
+      		<div class="author">{$value['author']}</div>
+      		<p>{$value['txt']}</p>
+      	</div>
+		{/loop}
       {if condition="$pussy_disqus"}
          <div id="disqus_thread"></div>
          <script type="text/javascript">
