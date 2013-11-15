@@ -76,10 +76,10 @@ function tag2page($tag, &$all_posts)
 	{
 		/// agrupamos los posts que tienen la etiqueta $tag
 		$posts = array();
-		foreach( array_reverse($all_posts) as $p)
+		foreach( $all_posts as $p)
 		{
 			if( in_array($tag, $p->keywords()) )
-				$posts[] = $p;
+				array_unshift($posts, $p);
 		}
 
 		/// configuramos rain.tpl

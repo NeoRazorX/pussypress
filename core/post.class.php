@@ -27,6 +27,7 @@ class post
 	public $published;
 	public $updated;
 	public $keywords;
+	private $array_keywords;
 	public $body;
 	public $next_link;
 	public $previous_link;
@@ -76,46 +77,49 @@ class post
 		}
 
 		/// leemos el archivo .comments
-		$file = fopen( substr($filename, 0, -4).'comments', 'r');
-		if($file)
+		if( file_exists( substr($filename, 0, -4).'comments' ) )
 		{
-			$new_comment = true;
-			$read_txt = false;
-
-			while( !feof($file) )
+			$file = fopen( substr($filename, 0, -4).'comments', 'r');
+			if($file)
 			{
-				if($new_comment)
+				$new_comment = true;
+				$read_txt = false;
+
+				while( !feof($file) )
 				{
-					$comment = array(
-						'author' => 'anonymous',
-						'published' => Date('d-m-Y'),
-						'updated' => Date('d-m-Y'),
-						'txt' => ''
-					);
-					$new_comment = false;
+					if($new_comment)
+					{
+						$comment = array(
+							'author' => 'anonymous',
+							'published' => Date('d-m-Y'),
+							'updated' => Date('d-m-Y'),
+							'txt' => ''
+						);
+						$new_comment = false;
+					}
+
+					$line = trim( fgets($file, 1024) );
+
+					if( substr($line, 0, 8) == 'author: ' )
+						$comment['author'] = substr($line, 8);
+					else if( substr($line, 0, 11) == 'published: ' )
+						$comment['published'] = Date('d-m-Y', intval( substr($line, 11) ) );
+					else if( substr($line, 0, 9) == 'updated: ' )
+						$comment['updated'] = Date('d-m-Y', intval( substr($line, 9) ) );
+					else if( $line == '----------' )
+						$read_txt = true;
+					else if( $line == '*****END*COMMENT*****' )
+					{
+						$this->comments[] = $comment;
+						$new_comment = true;
+						$read_txt = false;
+					}
+					else if($read_txt)
+						$comment['txt'] .= $line;
 				}
 
-				$line = trim( fgets($file, 1024) );
-
-				if( substr($line, 0, 8) == 'author: ' )
-					$comment['author'] = substr($line, 8);
-				else if( substr($line, 0, 11) == 'published: ' )
-					$comment['published'] = Date('d-m-Y', intval( substr($line, 11) ) );
-				else if( substr($line, 0, 9) == 'updated: ' )
-					$comment['updated'] = Date('d-m-Y', intval( substr($line, 9) ) );
-				else if( $line == '----------' )
-					$read_txt = true;
-				else if( $line == '*****END*COMMENT*****' )
-				{
-					$this->comments[] = $comment;
-					$new_comment = true;
-					$read_txt = false;
-				}
-				else if($read_txt)
-					$comment['txt'] .= $line;
+				fclose($file);
 			}
-
-			fclose($file);
 		}
 	}
 
@@ -132,16 +136,19 @@ class post
 
 	public function keywords()
 	{
-		$keywords = array();
-
-		foreach( explode(',', $this->keywords) as $key )
+		if( !isset($this->array_keywords) )
 		{
-			$tag = $this->sanitize($key);
-			if($tag != '')
-				$keywords[] = $tag;
+			$this->array_keywords = array();
+
+			foreach( explode(',', $this->keywords) as $key )
+			{
+				$tag = $this->sanitize($key);
+				if($tag != '')
+					$this->array_keywords[] = $tag;
+			}
 		}
 
-		return $keywords;
+		return $this->array_keywords;
 	}
 
 	private function sanitize($str)

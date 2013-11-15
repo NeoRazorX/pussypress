@@ -20,8 +20,7 @@
          <td align="right">
             <form action="http://www.google.com/search" method="get" target="_blank">
                <input type="hidden" name="as_sitesearch" value="{$pussy_domain}">
-               <input type="text" name="as_q" size="15"/>
-               <input type="submit" value="buscar"/>
+               <input type="text" name="as_q" size="15" placeholder=" buscar..."/>
             </form>
          </td>
       </tr>
@@ -46,9 +45,12 @@
    </div>
    <div class="post">
       <h1>
-      	<a href="{$post->new_url($post->link, $here)}">{$post->title}</a>
+      	<a href="{$post->link}">{$post->title}</a>
       </h1>
       <div class="post_body">{$post->body}</div>
+      <div class="b_comments">
+         <a href="{$post->link}#comment-form">Comentarios</a>
+      </div>
    </div>
    <br/><br/>
    <div>

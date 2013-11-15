@@ -17,8 +17,7 @@
          <td align="right">
             <form action="http://www.google.com/search" method="get" target="_blank">
                <input type="hidden" name="as_sitesearch" value="{$pussy_domain}">
-               <input type="text" name="as_q" size="15"/>
-               <input type="submit" value="buscar"/>
+               <input type="text" name="as_q" size="15" placeholder=" buscar..."/>
             </form>
          </td>
       </tr>
@@ -47,6 +46,7 @@
             <a href="{$post->new_url('search/label/'.$value, $here)}">{$value}</a>,
          {/loop}
       </div>
+      <a name="comment-form"></a>
       {loop="$post->comments"}
       	<div class="old_comment">
       		<div class="date">{$value['published']}</div>
@@ -58,7 +58,8 @@
          <div id="disqus_thread"></div>
          <script type="text/javascript">
             /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-            var disqus_shortname = '{$pussy_disqus}'; // required: replace example with your forum shortname
+            var disqus_shortname = '{$pussy_disqus}';
+            var disqus_identifier = '{$post->link}';
 
             /* * * DON'T EDIT BELOW THIS LINE * * */
             (function() {

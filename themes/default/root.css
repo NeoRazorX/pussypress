@@ -44,6 +44,15 @@ div.big_header ul li {
    border-radius: 20px;
 }
 
+div.b_comments a {
+   display: block;
+   max-width: 700px;
+   margin: 5px auto 5px auto;
+   padding: 5px;
+   background-color: #96C5CB;
+   text-align: center;
+}
+
 div.hr {
 	height: 1px;
 	margin-bottom: 10px;
