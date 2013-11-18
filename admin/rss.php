@@ -84,7 +84,7 @@ function posts2atom(&$posts)
             fwrite($file, '	<entry>
 		<title type="text">'.$p->title.'</title>
       <link rel="replies" type="text/html" href="http://www.'.PUSSY_DOMAIN.'/'.$p->link.'#comment-form" title="comentar"/>
-      <link rel="alternate" type="text/html" href="http://www.'.PUSSY_DOMAIN.'/'.$p->link.'" title="'.$p->title.'"/>
+      <link rel="alternate" type="text/html" href="http://www.'.PUSSY_DOMAIN.'/'.$p->link.'"/>
       <link href="http://www.'.PUSSY_DOMAIN.'/'.$p->link.'">http://www.'.PUSSY_DOMAIN.'/'.$p->link.'</link>
       <summary type="text">'.$p->description().'</summary>
 	</entry>'."\n");
