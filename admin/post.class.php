@@ -17,8 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once 'core/raintpl/rain.tpl.class.php';
-
 class post
 {
 	public $file;
@@ -33,93 +31,111 @@ class post
 	public $previous_link;
 	public $comments;
 
-	public function __construct($filename)
+	public function __construct($filename=false)
 	{
 		$aux = explode('/', substr($filename, 0, -4).'html');
 
-		$this->file = $filename;
-		$this->link = substr($filename, 0, -4).'html';
-		$this->title = 'Sin título';
+		$this->title = 'Hola mundo '.mt_rand(0, 999);
 		$this->description = '';
 		$this->published = time();
 		$this->updated = time();
 		$this->keywords = '';
-		$this->body = '';
+		$this->body = 'Sin texto.';
 		$this->next_link = '/';
 		$this->previous_link = '/';
 		$this->comments = array();
 
-		/// leemos el archivo .post
-		$file = fopen($filename, 'r');
-		if($file)
+		if($filename)
 		{
-			$read_post = false;
+			$this->file = $filename;
+			$this->link = substr($filename, 0, -4).'html';
 
-			while( !feof($file) )
+			/// leemos el archivo .post
+			if( file_exists($filename) )
 			{
-				$line = trim( fgets($file, 1024) );
-
-				if( substr($line, 0, 7) == 'title: ' )
-					$this->title = substr($line, 7);
-				else if( substr($line, 0, 11) == 'published: ' )
-					$this->published = intval( substr($line, 11) );
-				else if( substr($line, 0, 9) == 'updated: ' )
-					$this->updated = intval( substr($line, 9) );
-				else if( substr($line, 0, 10) == 'keywords: ' )
-					$this->keywords = substr($line, 10);
-				else if( $line == '----------' )
-					$read_post = true;
-				else if($read_post)
-					$this->body .= $line;
-			}
-
-			fclose($file);
-		}
-
-		/// leemos el archivo .comments
-		if( file_exists( substr($filename, 0, -4).'comments' ) )
-		{
-			$file = fopen( substr($filename, 0, -4).'comments', 'r');
-			if($file)
-			{
-				$new_comment = true;
-				$read_txt = false;
-
-				while( !feof($file) )
+				$file = fopen($filename, 'r');
+				if($file)
 				{
-					if($new_comment)
+					$read_post = false;
+
+					while( !feof($file) )
 					{
-						$comment = array(
-							'author' => 'anonymous',
-							'published' => Date('d-m-Y'),
-							'updated' => Date('d-m-Y'),
-							'txt' => ''
-						);
-						$new_comment = false;
+						$lineb = fgets($file, 1024);
+						$line = trim($lineb);
+
+						if( substr($line, 0, 7) == 'title: ' )
+							$this->title = substr($line, 7);
+						else if( substr($line, 0, 11) == 'published: ' )
+							$this->published = intval( substr($line, 11) );
+						else if( substr($line, 0, 9) == 'updated: ' )
+							$this->updated = intval( substr($line, 9) );
+						else if( substr($line, 0, 10) == 'keywords: ' )
+							$this->keywords = substr($line, 10);
+						else if( $line == '----------' )
+						{
+							$read_post = true;
+							$this->body = '';
+						}
+						else if($read_post)
+							$this->body .= $lineb;
 					}
 
-					$line = trim( fgets($file, 1024) );
-
-					if( substr($line, 0, 8) == 'author: ' )
-						$comment['author'] = substr($line, 8);
-					else if( substr($line, 0, 11) == 'published: ' )
-						$comment['published'] = Date('d-m-Y', intval( substr($line, 11) ) );
-					else if( substr($line, 0, 9) == 'updated: ' )
-						$comment['updated'] = Date('d-m-Y', intval( substr($line, 9) ) );
-					else if( $line == '----------' )
-						$read_txt = true;
-					else if( $line == '*****END*COMMENT*****' )
-					{
-						$this->comments[] = $comment;
-						$new_comment = true;
-						$read_txt = false;
-					}
-					else if($read_txt)
-						$comment['txt'] .= $line;
+					fclose($file);
 				}
-
-				fclose($file);
 			}
+
+			/// leemos el archivo .comments
+			if( file_exists( substr($filename, 0, -4).'comments' ) )
+			{
+				$file = fopen( substr($filename, 0, -4).'comments', 'r');
+				if($file)
+				{
+					$new_comment = true;
+					$read_txt = false;
+
+					while( !feof($file) )
+					{
+						if($new_comment)
+						{
+							$comment = array(
+								'author' => 'anonymous',
+								'published' => Date('d-m-Y'),
+								'updated' => Date('d-m-Y'),
+								'txt' => ''
+							);
+							$new_comment = false;
+						}
+
+						$lineb = fgets($file, 1024);
+						$line = trim($lineb);
+
+						if( substr($line, 0, 8) == 'author: ' )
+							$comment['author'] = substr($line, 8);
+						else if( substr($line, 0, 11) == 'published: ' )
+							$comment['published'] = Date('d-m-Y', intval( substr($line, 11) ) );
+						else if( substr($line, 0, 9) == 'updated: ' )
+							$comment['updated'] = Date('d-m-Y', intval( substr($line, 9) ) );
+						else if( $line == '----------' )
+							$read_txt = true;
+						else if( $line == '*****END*COMMENT*****' )
+						{
+							$this->comments[] = $comment;
+							$new_comment = true;
+							$read_txt = false;
+						}
+						else if($read_txt)
+							$comment['txt'] .= $lineb;
+					}
+
+					fclose($file);
+				}
+			}
+		}
+		else
+		{
+			$this->file = Date('Y/m', $this->published).'/'.$this->sanitize($this->title).'.post';
+			$this->link = substr($this->file, 0, -4).'html';
+			$this->body = 'Este es un post de ejemplo generado automáticamente.';
 		}
 	}
 
@@ -189,16 +205,19 @@ class post
 		return $nurl.$url;
 	}
 
+	public function edit_url($from='index.html')
+	{
+		$nurl = '';
+		for($i = 1; $i < count( explode('/', $from) ); $i++)
+			$nurl .= '../';
+		return $nurl.'admin/index.php?edit='.urlencode($this->file);
+	}
+
 	public function compile($filename)
 	{
 		$file = fopen($filename, 'w');
 		if($file)
 		{
-			/// configuramos rain.tpl
-			raintpl::configure('base_url', NULL);
-			raintpl::configure('path_replace', FALSE);
-			raintpl::configure('tpl_dir', 'themes/'.PUSSY_THEME.'/');
-			raintpl::configure('cache_dir', '/tmp/');
 			$tpl = new RainTPL();
 			$tpl->assign('pussy_title', PUSSY_TITLE);
 			$tpl->assign('pussy_description', PUSSY_DESCRIPTION);
@@ -320,6 +339,35 @@ class post
 		$newt = str_replace('"', '&quot;', $newt);
 		$newt = str_replace("&nbsp;", ' ', $newt);
 		return str_replace("'", '&#39;', $newt);
+	}
+
+	public function save()
+	{
+		if( !file_exists( $this->year() ) )
+			mkdir( $this->year() );
+
+		if( !file_exists( $this->year().'/'.$this->month() ) )
+			mkdir( $this->year().'/'.$this->month() );
+
+		$file = fopen($this->file, 'w');
+		if($file)
+		{
+			fwrite($file, 'title: '.$this->title."\n");
+			fwrite($file, 'published: '.$this->published."\n");
+			fwrite($file, 'updated: '.$this->updated."\n");
+			fwrite($file, 'keywords: '.$this->keywords."\n");
+			fwrite($file, "----------\n".$this->body);
+			fclose($file);
+		}
+	}
+
+	public function delete()
+	{
+		if( file_exists($this->file) )
+			unlink($this->file);
+
+		if( file_exists( substr($this->file, 0, -4).'comments') )
+			unlink( substr($this->file, 0, -4).'comments');
 	}
 }
 

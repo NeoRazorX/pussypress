@@ -47,4 +47,7 @@ define('PUSSY_TWITTER', 'neorazorx');
 /// ¿Tienes github?
 define('PUSSY_GITHUB', 'neorazorx');
 
+/// contraseña para crear/editar posts
+define('PUSSY_PASSWORD', '1234');
+
 ?>

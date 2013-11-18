@@ -8,29 +8,42 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
    <link rel="icon" type="image/vnd.microsoft.icon" href="../../themes/default/favicon.ico" />
    <link rel="alternate" type="application/atom+xml" title="{$pussy_title}" href="../../feeds/posts/default" />
-   <style type="text/css">
-      {include="style.css"}
-      {include="tag.css"}
-   </style>
+   <style type="text/css">{include="root.css"}</style>
+   {if condition="$pussy_google_analytics"}
+   <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', '{$pussy_google_analytics}', '{pussy_domain}');
+      ga('send', 'pageview');
+   </script>
+   {/if}
 </head>
 <body>
    <table class="top_menu">
       <tr>
+         <td>
+            <a href="../../admin">Nuevo</a>
+         </td>
          <td align="right">
             <form action="http://www.google.com/search" method="get" target="_blank">
                <input type="hidden" name="as_sitesearch" value="{$pussy_domain}">
-               <input type="text" name="as_q" size="15" placeholder=" buscar..."/>
+               <input type="text" name="as_q" size="15" placeholder=" Buscar..."/>
             </form>
          </td>
       </tr>
    </table>
    <div class="header">
-      <h1>
-         <a href="../../">{$pussy_title}</a>
-      </h1>
-      <p>{$pussy_description}</p>
+      <div class="header_2">
+         <img class="logo" src="../../themes/default/nrx.png" alt="logo"/>
+         <h1>
+            <a href="../../">{$pussy_title}</a>
+         </h1>
+         <p>{$pussy_description}</p>
+      </div>
    </div>
-   <div class="tag_info">
+   <div class="post">
       <h1>{$tag}</h1>
       <ul>
          {loop="$posts"}

@@ -17,9 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-include "config.php";
-
-function new_post(&$entry)
+function import_new_post(&$entry)
 {
 	if($entry->link)
 	{
@@ -60,8 +58,6 @@ function new_post(&$entry)
 						fwrite($file, htmlspecialchars_decode( (string)$entry->content )."\n");
 						fclose($file);
 					}
-
-					touch( substr($new_filename, 0, -4).'comments' );
 				}
 				break;
 			}
@@ -69,7 +65,7 @@ function new_post(&$entry)
 	}
 }
 
-function new_comment(&$entry)
+function import_new_comment(&$entry)
 {
 	if($entry->link)
 	{
@@ -87,9 +83,9 @@ function new_comment(&$entry)
 					$filename = $aux2[5];
 					$new_filename = $year.'/'.$month.'/'.substr($filename, 0, -4).'comments';
 
-					if( file_exists($new_filename) )
+					if( !file_exists($new_filename) )
 					{
-						$file = fopen($new_filename, 'a');
+						$file = fopen($new_filename, 'w');
 						if($file)
 						{
 							fwrite($file, 'author: '.(string)$entry->author->name."\n");
@@ -107,16 +103,9 @@ function new_comment(&$entry)
 	}
 }
 
-
-if( !isset($_SERVER["argv"]) )
-   echo "uso: php5 import.php ruta_del_archivo.xml\n";
-else if( count($_SERVER["argv"]) != 2 )
-   echo "uso: php5 import.php ruta_del_archivo.xml\n";
-else if( !file_exists($_SERVER["argv"][1]) )
-   echo "Archivo no encontrado.\n";
-else
+function import_file()
 {
-	$xml = simplexml_load_file($_SERVER["argv"][1]);
+	$xml = simplexml_load_file($_FILES['blog_file']['tmp_name']);
 	if($xml)
 	{
 		if($xml->entry)
@@ -128,11 +117,11 @@ else
 			{
 				if( strstr($entry->asXML(), $postcategory) AND !strstr($entry->asXML(), $postimport) )
 				{
-					new_post($entry);
+					import_new_post($entry);
 				}
 				else if( strstr($entry->asXML(), $commentcategory) )
 				{
-					new_comment($entry);
+					import_new_comment($entry);
 				}
 			}
 		}

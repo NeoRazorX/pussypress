@@ -5,11 +5,11 @@ body {
    font-family: 'Open Sans', sans-serif;
    text-rendering: optimizeLegibility;
    -webkit-font-smoothing: antialiased;
-   font-size: 17px;
+   font-size: 15px;
 }
 
 a {
-   color: #555;
+   color: #666;
 }
 
 pre {
@@ -35,16 +35,14 @@ table.top_menu {
    color: white;
 }
 
+table.top_menu a {
+   margin: 0px 5px 0px 5px;
+   color: white;
+}
+
 table.top_menu input[type='text'] {
    background-color: white;
    border: 1px solid silver;
-}
-
-table.top_menu input[type='submit'] {
-   background-color: #166BEC;
-   border: 1px solid #5699FF;
-   color: white;
-   text-transform: uppercase;
 }
 
 div.header {
@@ -110,7 +108,6 @@ div.post div.old_comment div.date {
 
 div.post div.old_comment p {
    margin: 10px 0px 0px 0px;
-   font-size: 16px;
 }
 
 hr {
@@ -127,7 +124,7 @@ hr {
    position: fixed;
    top: 200px;
    left: 0px;
-   padding: 20px 10px 20px 5px;
+   padding: 20px 5px 20px 0px;
    border-top-right-radius: 10px;
    border-bottom-right-radius: 10px;
    background-color: #464646;
@@ -137,11 +134,15 @@ hr {
    text-decoration: none;
 }
 
+#prev_post:hover {
+   padding-left: 5px;
+}
+
 #next_post {
    position: fixed;
    top: 200px;
    right: 0px;
-   padding: 20px 5px 20px 10px;
+   padding: 20px 0px 20px 5px;
    border-top-left-radius: 10px;
    border-bottom-left-radius: 10px;
    background-color: #464646;
@@ -151,7 +152,12 @@ hr {
    text-decoration: none;
 }
 
+#next_post:hover {
+   padding-right: 5px;
+}
+
 div.footer {
-   margin-top: 20px;
+   width: 500px;
+   margin: 20px auto 10px auto;
    text-align: center;
 }

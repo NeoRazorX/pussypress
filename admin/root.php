@@ -17,18 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once 'core/raintpl/rain.tpl.class.php';
-
 function post2root(&$post, &$tags)
 {
 	$file = fopen('index.html', 'w');
 	if($file)
 	{
-		/// configuramos rain.tpl
-		raintpl::configure('base_url', NULL);
-		raintpl::configure('path_replace', FALSE);
-		raintpl::configure('tpl_dir', 'themes/'.PUSSY_THEME.'/');
-		raintpl::configure('cache_dir', '/tmp/');
 		$tpl = new RainTPL();
 		$tpl->assign('pussy_title', PUSSY_TITLE);
 		$tpl->assign('pussy_description', PUSSY_DESCRIPTION);

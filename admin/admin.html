@@ -1,0 +1,85 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es" >
+<head>
+   <title>{$pussy_title}</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   <meta name="description" content="{$pussy_description}" />
+   <meta name="Robots" content="all" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <link rel="icon" type="image/vnd.microsoft.icon" href="../themes/default/favicon.ico" />
+   <style type="text/css">{include="admin.css"}</style>
+   <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+   <script type="text/javascript">
+   	$(document).ready(function() {
+   		$("#b_import").click(function() {
+   			$("#div_importar").fadeIn();
+   		});
+   	});
+   </script>
+</head>
+<body>
+   <table class="top_menu">
+      <tr>
+      	<td>
+      		<a href="../">Blog</a>
+            <a href="index.php?recompile=TRUE">Recompilar</a>
+            <a id="b_import" href="#">Importar...</a>
+      	</td>
+         <td align="right">
+            <form action="http://www.google.com/search" method="get" target="_blank">
+               <input type="hidden" name="as_sitesearch" value="{$pussy_domain}">
+               <input type="text" name="as_q" size="15" placeholder=" Buscar..."/>
+            </form>
+         </td>
+      </tr>
+   </table>
+   {loop="$messages"}
+      <div class="message">{$value}</div>
+   {/loop}
+   <div id="div_importar" class="post" style="display: none;">
+   	<h1>Importar desde blogger</h1>
+   	<form action="index.php" method="post" enctype="multipart/form-data">
+   		<input name='blog_file' type='file'/>
+   		<table width="100%">
+            <td>
+               <input type="password" name="password" placeholder=" contraseña"/>
+            </td>
+            <td align="right">
+               <input type="submit" value="Importar"/>
+            </td>
+         </table>
+   	</form>
+   </div>
+   <div class="post">
+      <form action="index.php" method="post">
+         <input type="hidden" name="file" value="{$post->file}">
+         <div>
+            <input class="full" type="text" name="title" value="{$post->title}" autocomplete="off"/>
+         </div>
+         <textarea name="body" rows="30">{$post->body}</textarea>
+         <div>
+            <input class="full" type="text" name="keywords" value="{$post->keywords}" autocomplete="off"/>
+         </div>
+         <br/>
+         <table width="100%">
+            <td>
+               <input type="password" name="password" placeholder=" contraseña"/>
+            </td>
+            <td>
+               <label>
+                  <input type="checkbox" name="delete" value="TRUE"/>
+                  Eliminar
+               </label>
+            </td>
+            <td align="right">
+               <input type="submit" value="Guardar"/>
+            </td>
+         </table>
+      </form>
+   </div>
+   <div class="footer">
+      <hr/>
+      Powered by <a target="_blank" href="https://github.com/NeoRazorX/pussypress">PussyPress</a>.
+   </div>
+</body>
+</html>
