@@ -74,6 +74,8 @@
       <ul>
          {loop="$tags"}
             <li><a href="search/label/{$value}">{$value}</a></li>
+         {else}
+            <li>No tengo obsesiones :-)</li>
          {/loop}
       </ul>
    </div>

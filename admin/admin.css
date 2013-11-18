@@ -92,7 +92,8 @@ div.message {
 }
 
 div.footer {
-   margin-top: 20px;
+   width: 500px;
+   margin: 20px auto 10px auto;
    text-align: center;
 }
 

@@ -21,16 +21,16 @@
 date_default_timezone_set('Europe/Madrid');
 
 /// El título del blog
-define('PUSSY_TITLE', 'NeoRazorX');
+define('PUSSY_TITLE', 'BLOG TITLE');
 
 /// La descripción del blog
-define('PUSSY_DESCRIPTION', "My new static blog. Why? Because fuck you, that's why!");
+define('PUSSY_DESCRIPTION', "Blog description");
 
 /// El aspecto seleccionado. Tiene que estar en la carpeta themes,
 define('PUSSY_THEME', 'default');
 
 /// El dominio del blog
-define('PUSSY_DOMAIN', 'neorazorx.com');
+define('PUSSY_DOMAIN', 'my-domain.com');
 
 /// ¿Usas google analytics? Escribe el identificador aquí.
 define('PUSSY_GOOGLE_ANALYTICS', '');
@@ -39,13 +39,13 @@ define('PUSSY_GOOGLE_ANALYTICS', '');
  * ¿Quieres usar la plataforma disqus para gestionar los comentarios?
  * Escribe aquí el shortname.
  */
-define('PUSSY_DISQUS', 'neorazorx');
+define('PUSSY_DISQUS', '');
 
 /// ¿Tienes twitter?
-define('PUSSY_TWITTER', 'neorazorx');
+define('PUSSY_TWITTER', '');
 
 /// ¿Tienes github?
-define('PUSSY_GITHUB', 'neorazorx');
+define('PUSSY_GITHUB', '');
 
 /// contraseña para crear/editar posts
 define('PUSSY_PASSWORD', '1234');

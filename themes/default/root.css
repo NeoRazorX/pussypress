@@ -186,6 +186,7 @@ div.tags ul {
 
 div.tags ul li {
    display: inline-block;
+   color: white;
 }
 
 div.tags ul li a {
