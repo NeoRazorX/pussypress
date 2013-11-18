@@ -31,9 +31,9 @@ function posts2rss(&$posts)
       fwrite($file, '<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0">
 <channel>
-  <title>'.PUSSY_TITLE.'</title>
-  <link>http://www.'.PUSSY_DOMAIN.'</link>
-  <description>'.PUSSY_DESCRIPTION.'</description>'."\n");
+	<title>'.PUSSY_TITLE.'</title>
+	<link>http://www.'.PUSSY_DOMAIN.'</link>
+	<description>'.PUSSY_DESCRIPTION.'</description>'."\n");
 
       $i = 0;
       foreach( array_reverse($posts) as $p)
@@ -42,11 +42,11 @@ function posts2rss(&$posts)
             break;
          else
          {
-            fwrite($file, '<item>
+            fwrite($file, '	<item>
       <title>'.$p->title.'</title>
       <link>http://www.'.PUSSY_DOMAIN.'/'.$p->link.'</link>
       <description>'.$p->description().'</description>
-      </item>'."\n");
+	</item>'."\n");
             $i++;
          }
       }
@@ -69,9 +69,10 @@ function posts2atom(&$posts)
    {
       fwrite($file, '<?xml version="1.0" encoding="UTF-8" ?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>'.PUSSY_TITLE.'</title>
-  <link href="http://www.'.PUSSY_DOMAIN.'"/>
-  <description>'.PUSSY_DESCRIPTION.'</description>'."\n");
+	<title>'.PUSSY_TITLE.'</title>
+	<subtitle>'.PUSSY_DESCRIPTION.'</subtitle>
+	<link href="http://www.'.PUSSY_DOMAIN.'/feeds/posts/default" rel="self" />
+	<link href="http://www.'.PUSSY_DOMAIN.'" />'."\n");
 
       $i = 0;
       foreach( array_reverse($posts) as $p)
@@ -80,16 +81,48 @@ function posts2atom(&$posts)
             break;
          else
          {
-            fwrite($file, '<entry>
-      <title type="text">'.$p->title.'</title>
-      <link href="http://www.'.PUSSY_DOMAIN.'/'.$p->link.'"/>
+            fwrite($file, '	<entry>
+		<title type="text">'.$p->title.'</title>
+      <link rel="replies" type="text/html" href="http://www.'.PUSSY_DOMAIN.'/'.$p->link.'#comment-form" title="comentar"/>
+      <link rel="alternate" type="text/html" href="http://www.'.PUSSY_DOMAIN.'/'.$p->link.'" title="'.$p->title.'"/>
+      <link href="http://www.'.PUSSY_DOMAIN.'/'.$p->link.'">http://www.'.PUSSY_DOMAIN.'/'.$p->link.'</link>
       <summary type="text">'.$p->description().'</summary>
-      </entry>'."\n");
+	</entry>'."\n");
             $i++;
          }
       }
 
       fwrite($file, '</feed>');
+      fclose($file);
+   }
+}
+
+function posts2sitemap(&$posts)
+{
+   $file = fopen('sitemap.xml', 'w');
+   if($file)
+   {
+      fwrite($file, '<?xml version="1.0" encoding="UTF-8"?>
+      	<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n");
+
+      $i = 0;
+      foreach( array_reverse($posts) as $p)
+      {
+         if($i > 100)
+            break;
+         else
+         {
+            fwrite($file, '<url>
+            	<loc>http://www.'.PUSSY_DOMAIN.'/'.$p->link.'</loc>
+            	<lastmod>'.Date('Y-m-d', $p->published).'</lastmod>
+            	<changefreq>always</changefreq>
+            	<priority>0.8</priority>
+            	</url>'."\n");
+            $i++;
+         }
+      }
+
+      fwrite($file, '</urlset>');
       fclose($file);
    }
 }

@@ -108,6 +108,9 @@ function compile_blog()
    /// generamos los feeds
    posts2rss($all_posts);
    posts2atom($all_posts);
+
+   /// generamos el sitemap
+   posts2sitemap($all_posts);
 }
 
 ?>
