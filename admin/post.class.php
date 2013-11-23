@@ -35,7 +35,7 @@ class post
 	{
 		$aux = explode('/', substr($filename, 0, -4).'html');
 
-		$this->title = 'Hola mundo '.mt_rand(0, 999);
+		$this->title = 'Hola mundo';
 		$this->description = '';
 		$this->published = time();
 		$this->updated = time();
@@ -133,7 +133,7 @@ class post
 		}
 		else
 		{
-			$this->file = Date('Y/m', $this->published).'/'.$this->sanitize($this->title).'.post';
+			$this->file = Date('Y/m', $this->published).'/'.$this->sanitize($this->title).'-'.mt_rand(0, 999).'.post';
 			$this->link = substr($this->file, 0, -4).'html';
 			$this->body = 'Este es un post de ejemplo generado automáticamente.';
 		}
@@ -148,6 +148,11 @@ class post
 	public function published()
 	{
 		return Date('d-m-Y', $this->published);
+	}
+
+	public function updated()
+	{
+		return Date('d-m-Y', $this->updated);
 	}
 
 	public function keywords()
@@ -343,6 +348,16 @@ class post
 
 	public function save()
 	{
+		/*
+		 * Si no existe el archivo, es porque era un boceto, así que buscamos un
+		 * nombre de archivo más acorde.
+		 */
+		if( !file_exists($this->file) )
+		{
+			$this->file = Date('Y/m', $this->published).'/'.$this->sanitize($this->title).'-'.mt_rand(0, 999).'.post';
+			$this->link = substr($this->file, 0, -4).'html';
+		}
+
 		if( !file_exists( $this->year() ) )
 			mkdir( $this->year() );
 
@@ -352,6 +367,8 @@ class post
 		$file = fopen($this->file, 'w');
 		if($file)
 		{
+			$this->updated = time();
+
 			fwrite($file, 'title: '.$this->title."\n");
 			fwrite($file, 'published: '.$this->published."\n");
 			fwrite($file, 'updated: '.$this->updated."\n");
@@ -368,6 +385,9 @@ class post
 
 		if( file_exists( substr($this->file, 0, -4).'comments') )
 			unlink( substr($this->file, 0, -4).'comments');
+
+		if( file_exists($this->link) )
+			unlink($this->link);
 	}
 }
 

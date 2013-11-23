@@ -77,7 +77,7 @@ function tag2page($tag, &$all_posts)
 		foreach( $all_posts as $p)
 		{
 			if( in_array($tag, $p->keywords()) )
-				array_unshift($posts, $p);
+				$posts[] = $p;
 		}
 
 		$tpl = new RainTPL();

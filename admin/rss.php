@@ -32,11 +32,11 @@ function posts2rss(&$posts)
 <rss version="2.0">
 <channel>
 	<title>'.PUSSY_TITLE.'</title>
-	<link>http://www.'.PUSSY_DOMAIN.'</link>
-	<description>'.PUSSY_DESCRIPTION.'</description>'."\n");
+	<description>'.PUSSY_DESCRIPTION.'</description>
+   <link>http://www.'.PUSSY_DOMAIN.'</link>'."\n");
 
       $i = 0;
-      foreach( array_reverse($posts) as $p)
+      foreach($posts as $p)
       {
          if($i > 100)
             break;
@@ -44,8 +44,9 @@ function posts2rss(&$posts)
          {
             fwrite($file, '	<item>
       <title>'.$p->title.'</title>
-      <link>http://www.'.PUSSY_DOMAIN.'/'.$p->link.'</link>
       <description>'.$p->description().'</description>
+      <link>http://www.'.PUSSY_DOMAIN.'/'.$p->link.'</link>
+      <pubDate>'.Date('r', $p->published).'</pubDate>
 	</item>'."\n");
             $i++;
          }
@@ -75,14 +76,16 @@ function posts2atom(&$posts)
 	<link href="http://www.'.PUSSY_DOMAIN.'" />'."\n");
 
       $i = 0;
-      foreach( array_reverse($posts) as $p)
+      foreach($posts as $p)
       {
          if($i > 100)
             break;
          else
          {
             fwrite($file, '	<entry>
-		<title type="text">'.$p->title.'</title>
+      <published>'.Date('Y-m-d', $p->published).'</published>
+      <updated>'.Date('Y-m-d', $p->updated).'</updated>
+      <title type="text">'.$p->title.'</title>
       <link rel="replies" type="text/html" href="http://www.'.PUSSY_DOMAIN.'/'.$p->link.'#comment-form" title="comentar"/>
       <link rel="alternate" type="text/html" href="http://www.'.PUSSY_DOMAIN.'/'.$p->link.'"/>
       <link href="http://www.'.PUSSY_DOMAIN.'/'.$p->link.'">http://www.'.PUSSY_DOMAIN.'/'.$p->link.'</link>
@@ -106,7 +109,7 @@ function posts2sitemap(&$posts)
       	<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n");
 
       $i = 0;
-      foreach( array_reverse($posts) as $p)
+      foreach($posts as $p)
       {
          if($i > 100)
             break;

@@ -17,58 +17,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once 'config.php';
-require_once 'raintpl/rain.tpl.class.php';
-require_once 'post.class.php';
-require_once 'compile.php';
-require_once 'import.php';
-
-if( !file_exists('../index.html') OR isset($_GET['recompile']) )
+if( !file_exists('config.php') )
 {
-	/// salimos del directorio admin
-   chdir('..');
-
-	echo 'Compilando en blog...';
-	compile_blog();
-	echo '<br/>clic <a href="..">aqu&iacute;</a> para volver.';
-
-	/// volvemos a admin
-   chdir('admin');
-}
-else if( isset($_FILES['blog_file']['tmp_name']) )
-{
-	if($_POST['password'] == PUSSY_PASSWORD)
-	{
-		if( is_uploaded_file($_FILES['blog_file']['tmp_name']) )
-		{
-			/// salimos del directorio admin
-   		chdir('..');
-
-			echo 'Importando datos del archivo...';
-			import_file();
-			compile_blog();
-			echo '<br/>clic <a href="..">aqu&iacute;</a> para volver.';
-
-			/// volvemos a admin
-	   	chdir('admin');
-		}
-		else
-		{
-			echo 'No se encuentra el archivo. Es posible que exceda el tama&ntilde;o m&aacute;ximo que permite php.
-				Edita el archivo php.ini para solucionarlo.';
-		}
-	}
-	else
-	{
-		echo 'Contrase&ntilde;a incorrecta.';
-	}
+	echo 'No se encuentra el archivo "admin/config.php". Tienes que renombrar
+		el archivo "admin/config-sample.php y rellenarlo."';
 }
 else
 {
+	require_once 'config.php';
+	require_once 'raintpl/rain.tpl.class.php';
+	require_once 'post.class.php';
+	require_once 'compile.php';
+	require_once 'import.php';
+	require_once 'fail2ban.php';
+
+	/// salimos del directorio admin
+	chdir('..');
+
 	/// configuramos rain.tpl
 	raintpl::configure('base_url', NULL);
 	raintpl::configure('path_replace', FALSE);
-	raintpl::configure('tpl_dir', './');
+	raintpl::configure('tpl_dir', 'admin/');
+	raintpl::configure('tpl_dir2', 'themes/'.PUSSY_THEME.'/');
 	raintpl::configure('cache_dir', '/tmp/');
 
 	$tpl = new RainTPL();
@@ -76,47 +46,107 @@ else
 	$tpl->assign('pussy_description', PUSSY_DESCRIPTION);
 	$tpl->assign('pussy_theme', PUSSY_THEME);
 	$tpl->assign('pussy_domain', PUSSY_DOMAIN);
-	$tpl->assign('pussy_google_analytics', PUSSY_GOOGLE_ANALYTICS);
-	$tpl->assign('pussy_twitter', PUSSY_TWITTER);
-	$tpl->assign('pussy_github', PUSSY_GITHUB);
 
 	$messages = array();
+	$post = new post();
 
-	chdir('..');
 
-	if( isset($_POST['file']) )
+	if( isset($_COOKIE['pussy_pswd']) )
+		$pussy_pswd = $_COOKIE['pussy_pswd'];
+	else
+		$pussy_pswd = '';
+
+
+	if( !file_exists('index.html') OR isset($_GET['recompile']) )
 	{
-		$post = new post( urldecode($_POST['file']) );
+		compile_blog();
+		$messages[] = 'Blog recompilado!';
+	}
+	else if( isset($_FILES['blog_file']['tmp_name']) )
+	{
+		$ips = array();
 
-		if($_POST['password'] == PUSSY_PASSWORD)
+		if( banned_ip($ips) )
 		{
-			if( isset($_POST['delete']) )
+			$messages[] = 'Tu IP ha sido baneada, tendr&aacute;s que esperar una hora antes de volver a entrar.';
+			ban_ip($ips);
+		}
+		else if($_POST['password'] == PUSSY_PASSWORD)
+		{
+			/// guardamos la contraseña
+			setcookie('pussy_pswd', $_POST['password'], time()+3600);
+			$pussy_pswd = $_POST['password'];
+
+			if( is_uploaded_file($_FILES['blog_file']['tmp_name']) )
 			{
-				$post->delete();
-				$messages[] = 'Post eliminado.';
+				$messages[] = 'Importando datos del archivo...';
+				import_file();
+				compile_blog();
+				$messages[] = 'Blog recompilado!';
 			}
 			else
 			{
-				$post->title = $_POST['title'];
-				$post->body = $_POST['body'];
-				$post->keywords = $_POST['keywords'];
-				$post->save();
-				$messages[] = 'Datos guardados.';
+				$messages[] = 'No se encuentra el archivo. Es posible que exceda el tama&ntilde;o m&aacute;ximo que permite php.
+					Edita el archivo php.ini para solucionarlo.';
 			}
 		}
 		else
-			$messages[] = 'Contraseña incorrecta.';
+		{
+			$messages[] = 'Contrase&ntilde;a incorrecta.';
+			ban_ip($ips);
+		}
 	}
-	else if( isset($_GET['edit']) )
-		$post = new post( urldecode($_GET['edit']) );
 	else
-		$post = new post();
+	{
+		if( isset($_POST['file']) )
+		{
+			$post = new post( urldecode($_POST['file']) );
+			$ips = array();
 
-	chdir('admin');
+			if( banned_ip($ips) )
+			{
+				$messages[] = 'Tu IP ha sido baneada, tendrás que esperar una hora antes de volver a entrar.';
+				ban_ip($ips);
+			}
+			else if($_POST['password'] == PUSSY_PASSWORD)
+			{
+				/// guardamos la contraseña
+				setcookie('pussy_pswd', $_POST['password'], time()+3600);
+				$pussy_pswd = $_POST['password'];
 
+				if( isset($_POST['delete']) )
+				{
+					$post->delete();
+					$messages[] = 'Post eliminado.';
+				}
+				else
+				{
+					$post->title = $_POST['title'];
+					$post->body = $_POST['body'];
+					$post->keywords = $_POST['keywords'];
+					$post->save();
+					$messages[] = 'Datos guardados.';
+				}
+
+				compile_blog();
+			}
+			else
+			{
+				$messages[] = 'Contraseña incorrecta.';
+				ban_ip($ips);
+			}
+		}
+		else if( isset($_GET['edit']) )
+			$post = new post( urldecode($_GET['edit']) );
+	}
+
+	$tpl->assign('pussy_pswd', $pussy_pswd);
 	$tpl->assign('post', $post);
 	$tpl->assign('messages', $messages);
 	$tpl->draw('admin.html');
+
+	/// volvemos a admin
+	chdir('admin');
 }
 
 ?>

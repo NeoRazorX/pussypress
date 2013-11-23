@@ -23,12 +23,6 @@ require_once 'tag.php';
 
 function compile_blog()
 {
-   /// configuramos rain.tpl
-   raintpl::configure('base_url', NULL);
-   raintpl::configure('path_replace', FALSE);
-   raintpl::configure('tpl_dir', 'themes/'.PUSSY_THEME.'/');
-   raintpl::configure('cache_dir', '/tmp/');
-
    /// cargamos todos los posts
    $all_posts = array();
    foreach(scandir('.') as $year)
@@ -49,6 +43,15 @@ function compile_blog()
       }
    }
 
+   /// ordenamos por fecha (primero la fecha más alta)
+   usort($all_posts, function($a, $b) {
+      if($a->published > $b->published)
+         return -1;
+      else if($a->published < $b->published)
+         return 1;
+      else
+         return 0;
+   });
 
    $year = '';
    $month = '';
@@ -61,10 +64,10 @@ function compile_blog()
 
       /// enlazamos los posts y generamos el HTML
       if( isset($all_posts[$i-1]) )
-         $all_posts[$i]->previous_link = $all_posts[$i-1]->link;
+         $all_posts[$i]->next_link = $all_posts[$i-1]->link;
 
       if( isset($all_posts[$i+1]) )
-         $all_posts[$i]->next_link = $all_posts[$i+1]->link;
+         $all_posts[$i]->previous_link = $all_posts[$i+1]->link;
 
       $all_posts[$i]->compile($value->link);
 
@@ -103,7 +106,7 @@ function compile_blog()
    }
 
    /// generamos el html para la raiz.
-   post2root( end($all_posts), sort_tags($tags) );
+   post2root( $all_posts[0], sort_tags($tags) );
 
    /// generamos los feeds
    posts2rss($all_posts);

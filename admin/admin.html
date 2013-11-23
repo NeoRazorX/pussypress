@@ -23,7 +23,7 @@
       	<td>
       		<a href="../">Blog</a>
       		<a href="../{$post->link}">Post</a>
-            <a target="_blank" href="index.php?recompile=TRUE">Recompilar</a>
+            <a href="index.php?recompile=TRUE">Recompilar</a>
             <a id="b_import" href="#">Importar...</a>
       	</td>
          <td align="right">
@@ -43,7 +43,7 @@
    		<input name='blog_file' type='file'/>
    		<table width="100%">
             <td>
-               <input type="password" name="password" placeholder=" contraseña"/>
+               <input type="password" name="password" value="{$pussy_pswd}" placeholder=" contraseña"/>
             </td>
             <td align="right">
                <input type="submit" value="Importar"/>
@@ -64,7 +64,7 @@
          <br/>
          <table width="100%">
             <td>
-               <input type="password" name="password" placeholder=" contraseña"/>
+               <input type="password" name="password" value="{$pussy_pswd}" placeholder=" contraseña"/>
             </td>
             <td>
                <label>
