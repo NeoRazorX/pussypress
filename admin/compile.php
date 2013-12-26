@@ -23,6 +23,14 @@ require_once 'tag.php';
 
 function compile_blog()
 {
+   $retorno = '';
+
+   /// ¿Podemos escribir en la carpeta?
+   if( mkdir('test') )
+      rmdir('test');
+   else
+      $retorno = '*** No se puede escribir en la carpeta  ***';
+
    /// cargamos todos los posts
    $all_posts = array();
    foreach(scandir('.') as $year)
@@ -114,6 +122,11 @@ function compile_blog()
 
    /// generamos el sitemap
    posts2sitemap($all_posts);
+
+   if($retorno == '')
+      return 'Blog recompilado correctamente.';
+   else
+      return $retorno;
 }
 
 ?>

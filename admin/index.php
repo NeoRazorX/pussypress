@@ -59,8 +59,7 @@ else
 
 	if( !file_exists('index.html') OR isset($_GET['recompile']) )
 	{
-		compile_blog();
-		$messages[] = 'Blog recompilado!';
+		$messages[] = compile_blog();
 	}
 	else if( isset($_FILES['blog_file']['tmp_name']) )
 	{

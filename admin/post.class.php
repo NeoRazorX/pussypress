@@ -218,6 +218,17 @@ class post
 		return $nurl.'admin/index.php?edit='.urlencode($this->file);
 	}
 
+	public function tweet_url()
+	{
+		return 'https://twitter.com/share?url='.urlencode('http://'.PUSSY_DOMAIN.'/'.$this->link).
+					'&amp;text='.urlencode($this->title);
+	}
+
+	public function plusone_url()
+	{
+		return 'https://plus.google.com/share?url='.urlencode('http://'.PUSSY_DOMAIN.'/'.$this->link);
+	}
+
 	public function compile($filename)
 	{
 		$file = fopen($filename, 'w');
