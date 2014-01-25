@@ -63,7 +63,7 @@ table#sub_menu a {
 }
 
 div.header {
-   max-width: 1000px;
+   max-width: 1100px;
    margin: 5px auto 5px auto;
    text-align: center;
 }
@@ -94,12 +94,7 @@ div.header ul li a {
 }
 
 div.post {
-   max-width: 1000px;
-   margin: 5px auto 5px auto;
-}
-
-div.post {
-   max-width: 1000px;
+   max-width: 1100px;
    margin-left: auto;
    margin-right: auto;
    padding: 10px;
@@ -206,7 +201,7 @@ div.footer {
 }
 
 div.footer a {
-   color: #182733;
+   color: #8F332C;
 }
 
 div.cookies {
