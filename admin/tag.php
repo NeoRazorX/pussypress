@@ -86,6 +86,8 @@ function tag2page($tag, &$all_posts)
 		$tpl->assign('pussy_theme', PUSSY_THEME);
 		$tpl->assign('pussy_domain', PUSSY_DOMAIN);
 		$tpl->assign('pussy_google_analytics', PUSSY_GOOGLE_ANALYTICS);
+		$tpl->assign('pussy_twitter', PUSSY_TWITTER);
+		$tpl->assign('pussy_github', PUSSY_GITHUB);
 		$tpl->assign('here', 'index.html');
 		$tpl->assign('tag', $tag);
 		$tpl->assign('posts', $posts);

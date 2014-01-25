@@ -1,0 +1,91 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es" >
+<head>
+   <title>{$tag}</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   <meta name="description" content="{$pussy_description}" />
+   <meta name="Robots" content="all" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <link rel="icon" type="image/vnd.microsoft.icon" href="../../themes/default/favicon.ico" />
+   <link rel="alternate" type="application/atom+xml" title="{$pussy_title}" href="../../feeds/posts/default" />
+   <style type="text/css">{include="root.css"}</style>
+   <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+   <script type="text/javascript">
+      $(document).ready(function() {
+         $("#b_menu").click(function() {
+            if( $("#sub_menu").is(":visible") )
+               $("#sub_menu").fadeOut();
+            else
+               $("#sub_menu").fadeIn();
+         });
+      });
+   </script>
+   {if condition="$pussy_google_analytics"}
+   <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', '{$pussy_google_analytics}', '{$pussy_domain}');
+      ga('send', 'pageview');
+   </script>
+   {/if}
+</head>
+<body>
+   <table class="top_menu">
+      <tr>
+         <td width="100">
+            <a id="b_menu" class="button" href="#"><img src="../../themes/simple/menu.png" alt="[=]" /></a>
+         </td>
+         <td align="center">
+            <a href="../../">{$pussy_title}</a>
+         </td>
+         <td width="100" align="right"></td>
+      </tr>
+   </table>
+   <table id="sub_menu">
+      <tr>
+         <td>
+            <a href="../../admin" title="nueva entrada">Nuevo</a>
+         </td>
+         <td align="right">
+            <form action="http://www.google.com/search" method="get" target="_blank">
+               <input type="hidden" name="as_sitesearch" value="{$pussy_domain}">
+               <input type="text" name="as_q" size="15" placeholder=" Buscar..."/>
+            </form>
+         </td>
+      </tr>
+   </table>
+   <div class="header">
+      <p>{$pussy_description}</p>
+      <ul>
+         {if condition="$pussy_twitter"}
+            <li><a target="_blank" href="https://twitter.com/{$pussy_twitter}">Twitter</a></li>
+         {/if}
+         {if condition="$pussy_github"}
+            <li><a target="_blank" href="https://github.com/{$pussy_github}">GitHub</a></li>
+         {/if}
+         {if condition="$pussy_github"}
+            <li><a target="_blank" href="http://resume.github.io/?{$pussy_github}">Mi CV</a></li>
+         {/if}
+      </ul>
+      <hr/>
+   </div>
+   <div class="post">
+      <h1>{$tag}</h1>
+      <ul>
+         {loop="$posts"}
+         <li><a href="../../{$value->link}">{$value->title}</a></li>
+         {/loop}
+      </ul>
+   </div>
+   <div class="footer">
+      Powered by <a target="_blank" href="https://github.com/NeoRazorX/pussypress">PussyPress</a>.
+   </div>
+   {if condition="$pussy_google_analytics"}
+   <div class="cookies">
+      Esta web usa cookies propias y de terceros para mejorar tu experiencia de navegación y realizar tareas de análisis. Al continuar con tu navegación entendemos que das tu consentimiento a nuestra política de cookies.
+   </div>
+   {/if}
+</body>
+</html>

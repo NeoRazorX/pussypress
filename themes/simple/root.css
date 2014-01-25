@@ -1,0 +1,232 @@
+body {
+   margin: 0px;
+   padding: 0px;
+   background-color: white;
+   color: #555555;
+   font-family: 'Open Sans', sans-serif;
+   text-rendering: optimizeLegibility;
+   -webkit-font-smoothing: antialiased;
+   font-size: 17px;
+}
+
+pre {
+   margin: 5px;
+}
+
+code {
+   display: block;
+   padding: 5px;
+   background-color: #FFFEDD;
+   border: 1px dotted silver;
+   overflow: auto;
+}
+
+table.top_menu {
+   width: 100%;
+   background-color: #FF685D;
+   border-top: 2px solid #993E38;
+   border-bottom: 1px solid #993E38;
+   color: white;
+   font-size: 30px;
+}
+
+table.top_menu a {
+   color: white;
+   text-decoration: none;
+}
+
+table.top_menu a.button {
+   display: inline-block;
+   min-width: 30px;
+   padding: 5px;
+   background-color: #B34941;
+   border-radius: 3px;
+   text-align: center;
+   vertical-align: middle;
+}
+
+table.top_menu a.button img {
+   display: block;
+}
+
+table#sub_menu {
+   display: none;
+   width: 100%;
+   background-color: #993E38;
+   color: white;
+}
+
+table#sub_menu a {
+   display: inline-block;
+   margin: 0px 5px 0pc 5px;
+   color: white;
+}
+
+div.header {
+   max-width: 1000px;
+   margin: 5px auto 5px auto;
+   text-align: center;
+}
+
+div.header p {
+   text-transform: uppercase;
+}
+
+div.header ul {
+   margin: 0px;
+   padding: 0px;
+   list-style: none;
+}
+
+div.header ul li {
+   display: inline-block;
+}
+
+div.header ul li a {
+   display: block;
+   padding: 10px;
+   background-color: #FFE5E3;
+   border: 2px solid #FF685D;
+   border-radius: 10px;
+   color: #FF685D;
+   font-weight: bold;
+   text-decoration: none;
+}
+
+div.post {
+   max-width: 1000px;
+   margin: 5px auto 5px auto;
+}
+
+div.post {
+   max-width: 1000px;
+   margin-left: auto;
+   margin-right: auto;
+   padding: 10px;
+}
+
+div.post h1 {
+   margin: 0px;
+   margin-bottom: 5px;
+}
+
+div.post a {
+   color: #8F332C;
+}
+
+div.post div.post_body {
+   text-align: justify;
+}
+
+div.post div.post_info {
+   margin-bottom: 30px;
+   color: #666666;
+   text-align: center;
+   font-size: 10px;
+}
+
+a.b_comments {
+   display: block;
+   padding: 5px;
+   background-color: #FFE5E3;
+   border: 1px dashed #FF685D;
+   text-align: center;
+}
+
+div.post div.old_comment {
+   margin-bottom: 15px;
+   padding: 2px 5px 2px 10px;
+   background-color: #F4F8FA;
+   border-left: 2px solid #BCE8F1;
+}
+
+div.post div.old_comment div.author {
+   font-weight: bold;
+   font-size: 14px;
+}
+
+div.post div.old_comment div.date {
+   float: right;
+   font-size: 10px;
+   color: #666666;
+}
+
+div.post div.old_comment p {
+   margin: 10px 0px 0px 0px;
+}
+
+div.tags {
+   max-width: 600px;
+   margin: 20px auto 10px auto;
+   padding: 10px;
+}
+
+div.tags div.hr {
+   height: 1px;
+   margin-bottom: 10px;
+   background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.35), rgba(0,0,0,0));
+   background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.35), rgba(0,0,0,0));
+   background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.35), rgba(0,0,0,0));
+   background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.35), rgba(0,0,0,0));
+   text-align: center;
+}
+
+div.tags span.hr {
+   position: relative;
+   top: -0.5em;
+   padding: 5px;
+   background-color: white;
+   color: #444444;
+   text-transform: uppercase;
+}
+
+div.tags ul {
+   max-width: 600px;
+   margin: 0px auto 0px auto;
+   padding: 5px;
+   list-style: none;
+   text-align: center;
+}
+
+div.tags ul li {
+   display: inline-block;
+   color: white;
+}
+
+div.tags ul li a {
+   display: block;
+   padding: 5px;
+   color: #8F332C;
+}
+
+div.footer {
+   max-width: 500px;
+   margin: 20px auto 50px auto;
+   text-align: center;
+}
+
+div.footer a {
+   color: #182733;
+}
+
+div.cookies {
+   position: fixed;
+   bottom: 0px;
+   left: 0px;
+   width: 100%;
+   padding: 5px;
+   background-color: #FFFFB3;
+   color: #424242;
+   text-align: center;
+   font-size: 10px;
+}
+
+hr {
+   margin-top: 15px;
+   border: 0px;
+   height: 1px;
+   background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.35), rgba(0,0,0,0));
+   background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.35), rgba(0,0,0,0));
+   background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.35), rgba(0,0,0,0));
+   background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.35), rgba(0,0,0,0));
+}

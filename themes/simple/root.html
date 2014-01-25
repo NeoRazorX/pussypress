@@ -1,0 +1,112 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es" >
+<head>
+   <title>{$post->title}</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   <meta name="description" content="{$post->description}" />
+   <meta name="keywords" content="{$post->keywords}" />
+   <meta name="Robots" content="all" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <link rel="icon" type="image/vnd.microsoft.icon" href="themes/default/favicon.ico" />
+   <link rel="alternate" type="application/atom+xml" title="{$pussy_title}" href="feeds/posts/default" />
+   <style type="text/css">{include="root.css"}</style>
+   <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+   <script type="text/javascript">
+      $(document).ready(function() {
+         $("#b_menu").click(function() {
+            if( $("#sub_menu").is(":visible") )
+               $("#sub_menu").fadeOut();
+            else
+               $("#sub_menu").fadeIn();
+         });
+      });
+   </script>
+   {if condition="$pussy_google_analytics"}
+   <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', '{$pussy_google_analytics}', '{$pussy_domain}');
+      ga('send', 'pageview');
+   </script>
+   {/if}
+</head>
+<body>
+   <table class="top_menu">
+      <tr>
+         <td width="100">
+            <a id="b_menu" class="button" href="#"><img src="themes/simple/menu.png" alt="[=]" /></a>
+         </td>
+         <td align="center">{$pussy_title}</td>
+         <td width="100" align="right">
+            {if condition="$post->previous_link!='/'"}
+               <a class="button" href="{$post->new_url($post->previous_link, $here)}" title="entrada anterior">&lt;</a>
+            {/if}
+            {if condition="$post->next_link!='/'"}
+               <a class="button" href="{$post->new_url($post->next_link, $here)}" title="entrada siguiente">&gt;</a>
+            {/if}
+         </td>
+      </tr>
+   </table>
+   <table id="sub_menu">
+      <tr>
+         <td>
+            <a href="{$post->new_url('admin', $here)}" title="nueva entrada">Nuevo</a>
+            <a href="{$post->edit_url($here)}" title="editar esta entrada">Editar</a>
+            <a href="{$post->tweet_url()}" title="compartir en Twitter">Twiter</a>
+            <a href="{$post->plusone_url()}" title="compartir en Google+">Google+</a>
+         </td>
+         <td align="right">
+            <form action="http://www.google.com/search" method="get" target="_blank">
+               <input type="hidden" name="as_sitesearch" value="{$pussy_domain}">
+               <input type="text" name="as_q" size="15" placeholder=" Buscar..."/>
+            </form>
+         </td>
+      </tr>
+   </table>
+   <div class="header">
+      <p>{$pussy_description}</p>
+      <ul>
+         {if condition="$pussy_twitter"}
+            <li><a target="_blank" href="https://twitter.com/{$pussy_twitter}">Twitter</a></li>
+         {/if}
+         {if condition="$pussy_github"}
+            <li><a target="_blank" href="https://github.com/{$pussy_github}">GitHub</a></li>
+         {/if}
+         {if condition="$pussy_github"}
+            <li><a target="_blank" href="http://resume.github.io/?{$pussy_github}">Mi CV</a></li>
+         {/if}
+      </ul>
+      <hr/>
+   </div>
+   <div class="post">
+      <h1>
+         <a href="{$post->link}">{$post->title}</a>
+      </h1>
+      <div class="post_body">{$post->body}</div>
+      <a class="b_comments" href="{$post->link}#comment-form">Comentarios</a>
+   </div>
+   <div class="tags">
+      <div class="hr">
+         <span class="hr">Mis obsesiones</span>
+      </div>
+      <ul>
+         {loop="$tags"}
+            <li><a href="search/label/{$value}">{$value}</a></li>
+         {else}
+            <li>No tengo obsesiones :-)</li>
+         {/loop}
+      </ul>
+   </div>
+   <div class="footer">
+      <hr/>
+      Powered by <a target="_blank" href="https://github.com/NeoRazorX/pussypress">PussyPress</a>.
+   </div>
+   {if condition="$pussy_google_analytics"}
+   <div class="cookies">
+      Esta web usa cookies propias y de terceros para mejorar tu experiencia de navegación y realizar tareas de análisis. Al continuar con tu navegación entendemos que das tu consentimiento a nuestra política de cookies.
+   </div>
+   {/if}
+</body>
+</html>

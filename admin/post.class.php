@@ -241,6 +241,8 @@ class post
 			$tpl->assign('pussy_domain', PUSSY_DOMAIN);
 			$tpl->assign('pussy_google_analytics', PUSSY_GOOGLE_ANALYTICS);
 			$tpl->assign('pussy_disqus', PUSSY_DISQUS);
+			$tpl->assign('pussy_twitter', PUSSY_TWITTER);
+			$tpl->assign('pussy_github', PUSSY_GITHUB);
 			$tpl->assign('post', $this);
 			$tpl->assign('here', $filename);
 			fwrite($file, $tpl->draw('post.html', true) );
