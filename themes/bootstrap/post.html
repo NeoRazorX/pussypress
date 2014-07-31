@@ -135,7 +135,12 @@
             </div>
          </div>
          <div class="col-lg-3" id="div_noticias">
-            {function="file_get_contents('http://www.locierto.es/iframe?link='.urlencode('http://www.'.$pussy_domain.'/'.$post->link))"}
+            <!-- {$keywords=$post->keywords()} -->
+            {if condition="$keywords"}
+               {function="file_get_contents('http://www.kelinux.net/iframe?search='.$keywords[0])"}
+            {else}
+               {function="file_get_contents('http://www.kelinux.net/iframe?search=')"}
+            {/if}
          </div>
       </div>
 
