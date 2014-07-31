@@ -14,19 +14,6 @@
    <style type="text/css">{include="root.css"}</style>
    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-   <script type="text/javascript">
-      $(document).ready(function() {
-         $.ajax({
-            type: 'POST',
-            url: 'http://www.kelinux.net/iframe',
-            dataType: 'html',
-            data: "link=http://www.{$pussy_domain}/{$post->link}",
-            success: function(datos) {
-               $("#div_noticias").html(datos);
-            }
-         });
-      });
-   </script>
    {if condition="$pussy_google_analytics"}
    <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -120,7 +107,7 @@
             </div>
          </div>
          <div class="col-lg-3" id="div_noticias">
-            
+            {function="file_get_contents('http://www.kelinux.net/iframe?link='.urlencode('http://www.'.$pussy_domain.'/'.$post->link))"}
          </div>
       </div>
 
