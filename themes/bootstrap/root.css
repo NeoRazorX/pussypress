@@ -1,0 +1,29 @@
+body {
+   
+}
+
+#div_menu {
+	padding-top: 10px;
+}
+
+#div_central {
+	border-left: 1px dotted #008CBA;
+}
+
+#div_noticias {
+	
+}
+
+.logo {
+   border-radius: 10px;
+}
+
+.tags {
+   margin: 10px 0px 20px 0px;
+}
+
+.post_info {
+	margin: 10px 0px 20px 0px;
+	text-align: center;
+	color: #777777;
+}
