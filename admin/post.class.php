@@ -172,6 +172,45 @@ class post
 		return $this->array_keywords;
 	}
 
+	public function related_stories()
+	{
+		$keywords = $this->keywords();
+
+		if($keywords)
+		{
+			if( in_array('facturascripts', $keywords) )
+			{
+				if( !file_exists('/tmp/pussy_facturascripts') )
+				{
+					$html = file_get_contents('http://www.facturascripts.com/community/iframe.php');
+					file_put_contents('/tmp/pussy_facturascripts', $html);
+				}
+
+				return file_get_contents('/tmp/pussy_facturascripts');
+			}
+			else if( in_array('locierto', $keywords) )
+			{
+				if( !file_exists('/tmp/pussy_locierto_'.$keywords[0]) )
+				{
+					$html = file_get_contents('http://www.locierto.es/iframe?search='.$keywords[0]);
+					file_put_contents('/tmp/pussy_locierto_'.$keywords[0], $html);
+				}
+
+				return file_get_contents('/tmp/pussy_locierto_'.$keywords[0]);
+			}
+			else
+			{
+				if( !file_exists('/tmp/pussy_kelinux_'.$keywords[0]) )
+				{
+					$html = file_get_contents('http://www.kelinux.net/iframe?search='.$keywords[0]);
+					file_put_contents('/tmp/pussy_kelinux_'.$keywords[0], $html);
+				}
+
+				return file_get_contents('/tmp/pussy_kelinux_'.$keywords[0]);
+			}
+		}
+	}
+
 	private function sanitize($str)
 	{
 		$str = trim( strtolower($str) );
@@ -403,5 +442,3 @@ class post
 			unlink($this->link);
 	}
 }
-
-?>

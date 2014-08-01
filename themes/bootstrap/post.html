@@ -86,6 +86,7 @@
                {if condition="$pussy_github"}
                <a target="_blank" href="http://resume.github.io/?{$pussy_github}" class="list-group-item">Mi CV</a>
                {/if}
+               <a target="_blank" href="{$post->new_url('feeds/posts/default', $here)}" class="list-group-item list-group-item-warning">RSS</a>
             </div>
 
             <div class="btn-group">
@@ -135,12 +136,7 @@
             </div>
          </div>
          <div class="col-lg-3" id="div_noticias">
-            <!-- {$keywords=$post->keywords()} -->
-            {if condition="$keywords"}
-               {function="file_get_contents('http://www.kelinux.net/iframe?search='.$keywords[0])"}
-            {else}
-               {function="file_get_contents('http://www.kelinux.net/iframe?search=')"}
-            {/if}
+            {$post->related_stories()}
          </div>
       </div>
 

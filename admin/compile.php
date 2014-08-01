@@ -128,5 +128,3 @@ function compile_blog()
    else
       return $retorno;
 }
-
-?>
