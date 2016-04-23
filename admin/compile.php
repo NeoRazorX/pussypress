@@ -1,7 +1,7 @@
 <?php
 /*
  * This file is part of PussyPress
- * Copyright (C) 2013  Carlos Garcia Gomez  neorazorx@gmail.com
+ * Copyright (C) 2013-2016  Carlos Garcia Gomez  neorazorx@gmail.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -26,8 +26,10 @@ function compile_blog()
    $retorno = '';
 
    /// ¿Podemos escribir en la carpeta?
-   if( mkdir('test') )
-      rmdir('test');
+   if( @mkdir('test') )
+   {
+      @rmdir('test');
+   }
    else
       $retorno = '*** No se puede escribir en la carpeta  ***';
 
@@ -124,7 +126,9 @@ function compile_blog()
    posts2sitemap($all_posts);
 
    if($retorno == '')
+   {
       return 'Blog recompilado correctamente.';
+   }
    else
       return $retorno;
 }

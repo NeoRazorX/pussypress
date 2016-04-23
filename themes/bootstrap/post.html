@@ -32,7 +32,7 @@
    {/if}
    <div itemscope itemtype="http://schema.org/Article" class="container-fluid">
       <div class="row">
-         <div class="col-lg-2 text-right" id="div_menu">
+         <div class="col-sm-3 col-md-2 text-right" id="div_menu">
             <div>
                <img src="{$post->new_url('themes/bootstrap/nrx.png', $here)}" alt="logo" class="logo"/>
             </div>
@@ -45,7 +45,7 @@
             </h3>
             <p>{$pussy_description}</p>
 
-            <div class="btn-group"> 
+            <div class="btn-group">
             {if condition="$post->previous_link!='/'"}
                <a class="btn btn-sm btn-default" href="{$post->new_url($post->previous_link, $here)}" title="entrada anterior">
                   <span class="glyphicon glyphicon-chevron-left"></span>
@@ -98,22 +98,30 @@
                </a>
             </div>
          </div>
-         <div class="col-lg-7" id="div_central">
+         <div class="col-sm-9 col-md-10" id="div_central">
             <div class="post">
-               <h1 itemprop="name">{$post->title}</h1>
-               <div itemprop="articleBody" class="post_body">{$post->body}</div>
-               <div class="post_info">
-                  Publicado el <span itemprop="datePublished" content="{function="Date('Y-m-d', $post->published)"}">{$post->published()}</span> &nbsp;
-                  {loop="$post->keywords()"}
-                  <a class="label label-default" href="{$post->new_url('search/label/'.$value, $here)}">{$value}</a>
-                  {/loop}
+               <div class="page-header">
+                  <h1 itemprop="name">{$post->title}</h1>
+                  <p class="help-block">
+                     <span class="glyphicon glyphicon-calendar"></span>
+                     Publicado el <span itemprop="datePublished" content="{function="Date('Y-m-d', $post->published)"}">{$post->published()}</span>
+                     &nbsp; &nbsp;
+                     <span class="glyphicon glyphicon-tags"></span>&nbsp;
+                     {loop="$post->keywords()"}{if="$counter>0"}, {/if}<a href="{$post->new_url('search/label/'.$value, $here)}">{$value}</a>{/loop}
+                  </p>
                </div>
+               <div itemprop="articleBody" class="post_body">{$post->body}</div>
+               <div class="post_info"></div>
                <a name="comment-form"></a>
                {loop="$post->comments"}
-               <div class="well well-sm">
-                  <div class="date pull-right">{$value['published']}</div>
-                  <div class="author">{$value['author']}</div>
-                  <p>{$value['txt']}</p>
+               <div class="panel panel-default">
+                  <div class="panel-heading">
+                     <div class="date pull-right">{$value['published']}</div>
+                     <div class="author"><span class="glyphicon glyphicon-comment"></span> {$value['author']}</div>
+                  </div>
+                  <div class="panel-body">
+                     <p class="help-block">{$value['txt']}</p>
+                  </div>
                </div>
                {/loop}
                {if condition="$pussy_disqus"}
@@ -135,14 +143,11 @@
                {/if}
             </div>
          </div>
-         <div class="col-lg-3" id="div_noticias">
-            {$post->related_stories()}
-         </div>
       </div>
-
       <div class="row">
-         <div class="col-lg-12 text-center" style="margin-top: 50px;">
-            <p>
+         <div class="col-sm-12 col-md-12 text-center" style="margin-top: 50px;">
+            <hr/>
+            <p class="help-block">
                Powered by <a target="_blank" href="https://github.com/NeoRazorX/pussypress">PussyPress</a>.
             </p>
          </div>

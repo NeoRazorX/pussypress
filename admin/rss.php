@@ -1,7 +1,7 @@
 <?php
 /*
  * This file is part of PussyPress
- * Copyright (C) 2013  Carlos Garcia Gomez  neorazorx@gmail.com
+ * Copyright (C) 2013-2016  Carlos Garcia Gomez  neorazorx@gmail.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -20,12 +20,16 @@
 function posts2rss(&$posts)
 {
    if( !file_exists('feeds') )
-      mkdir('feeds');
+   {
+      @mkdir('feeds');
+   }
 
    if( !file_exists('feeds/posts') )
-      mkdir('feeds/posts');
+   {
+      @mkdir('feeds/posts');
+   }
 
-   $file = fopen('feeds/posts/rss', 'w');
+   $file = @fopen('feeds/posts/rss', 'w');
    if($file)
    {
       fwrite($file, '<?xml version="1.0" encoding="UTF-8" ?>
@@ -60,12 +64,16 @@ function posts2rss(&$posts)
 function posts2atom(&$posts)
 {
 	if( !file_exists('feeds') )
-      mkdir('feeds');
+   {
+      @mkdir('feeds');
+   }
 
    if( !file_exists('feeds/posts') )
-      mkdir('feeds/posts');
+   {
+      @mkdir('feeds/posts');
+   }
 
-   $file = fopen('feeds/posts/default', 'w');
+   $file = @fopen('feeds/posts/default', 'w');
    if($file)
    {
       fwrite($file, '<?xml version="1.0" encoding="UTF-8" ?>
@@ -102,7 +110,7 @@ function posts2atom(&$posts)
 
 function posts2sitemap(&$posts)
 {
-   $file = fopen('sitemap.xml', 'w');
+   $file = @fopen('sitemap.xml', 'w');
    if($file)
    {
       fwrite($file, '<?xml version="1.0" encoding="UTF-8"?>

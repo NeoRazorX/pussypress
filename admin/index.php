@@ -1,7 +1,7 @@
 <?php
 /*
  * This file is part of PussyPress
- * Copyright (C) 2013  Carlos Garcia Gomez  neorazorx@gmail.com
+ * Copyright (C) 2013-2016  Carlos Garcia Gomez  neorazorx@gmail.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,8 +19,16 @@
 
 if( !file_exists('config.php') )
 {
-	echo 'No se encuentra el archivo "admin/config.php". Tienes que renombrar
+	echo 'ERROR: No se encuentra el archivo "admin/config.php". Tienes que renombrar
 		el archivo "admin/config-sample.php y rellenarlo."';
+}
+else if( !function_exists('mb_strlen') )
+{
+   echo 'ERROR: No se encuentra la función mb_strlen. Instala el paquete php-mbstring';
+}
+else if( !function_exists('simplexml_load_file') )
+{
+   echo 'ERROR: No se encuentra la función simplexml_load_file. Instala el paquete php-xml';
 }
 else
 {
@@ -52,7 +60,9 @@ else
 
 
 	if( isset($_COOKIE['pussy_pswd']) )
+   {
 		$pussy_pswd = $_COOKIE['pussy_pswd'];
+   }
 	else
 		$pussy_pswd = '';
 
@@ -85,8 +95,14 @@ else
 			}
 			else
 			{
-				$messages[] = 'No se encuentra el archivo. Es posible que exceda el tama&ntilde;o m&aacute;ximo que permite php.
-					Edita el archivo php.ini para solucionarlo.';
+            $max = intval( ini_get('post_max_size') );
+            if( intval(ini_get('upload_max_filesize')) < $max )
+            {
+               $max = intval(ini_get('upload_max_filesize'));
+            }
+            
+				$messages[] = 'No se encuentra el archivo. Es posible que exceda el tama&ntilde;o m&aacute;ximo que permite php: '
+                    .$max.' MB. Edita el archivo php.ini para solucionarlo.';
 			}
 		}
 		else
@@ -136,7 +152,9 @@ else
 			}
 		}
 		else if( isset($_GET['edit']) )
+      {
 			$post = new post( urldecode($_GET['edit']) );
+      }
 	}
 
 	$tpl->assign('pussy_pswd', $pussy_pswd);
@@ -147,5 +165,3 @@ else
 	/// volvemos a admin
 	chdir('admin');
 }
-
-?>

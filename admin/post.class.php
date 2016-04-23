@@ -1,7 +1,7 @@
 <?php
 /*
  * This file is part of PussyPress
- * Copyright (C) 2013  Carlos Garcia Gomez  neorazorx@gmail.com
+ * Copyright (C) 2013-2016  Carlos Garcia Gomez  neorazorx@gmail.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -25,11 +25,12 @@ class post
 	public $published;
 	public $updated;
 	public $keywords;
-	private $array_keywords;
 	public $body;
 	public $next_link;
 	public $previous_link;
 	public $comments;
+   
+   private $array_keywords;
 
 	public function __construct($filename=false)
 	{
@@ -270,7 +271,7 @@ class post
 
 	public function compile($filename)
 	{
-		$file = fopen($filename, 'w');
+		$file = @fopen($filename, 'w');
 		if($file)
 		{
 			$tpl = new RainTPL();
@@ -411,12 +412,16 @@ class post
 		}
 
 		if( !file_exists( $this->year() ) )
-			mkdir( $this->year() );
+      {
+			@mkdir( $this->year() );
+      }
 
 		if( !file_exists( $this->year().'/'.$this->month() ) )
-			mkdir( $this->year().'/'.$this->month() );
+      {
+			@mkdir( $this->year().'/'.$this->month() );
+      }
 
-		$file = fopen($this->file, 'w');
+		$file = @fopen($this->file, 'w');
 		if($file)
 		{
 			$this->updated = time();

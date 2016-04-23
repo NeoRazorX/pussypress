@@ -1,7 +1,7 @@
 <?php
 /*
  * This file is part of PussyPress
- * Copyright (C) 2013  Carlos Garcia Gomez  neorazorx@gmail.com
+ * Copyright (C) 2013-2016  Carlos Garcia Gomez  neorazorx@gmail.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -17,9 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function post2root(&$post, &$tags)
+function post2root($post, $tags)
 {
-	$file = fopen('index.html', 'w');
+	$file = @fopen('index.html', 'w');
 	if($file)
 	{
 		$tpl = new RainTPL();
